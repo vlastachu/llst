@@ -36,13 +36,14 @@
 #include <primitives.h>
 
 #include <llvm/Support/TargetSelect.h>
-#include <llvm/Support/IRReader.h>
 #include <llvm/Support/InstIterator.h>
+#include <llvm/Support/SourceMgr.h>
+#include <llvm/Support/CallSite.h>
+#include <llvm/IRReader/IRReader.h>
 #include <llvm/Analysis/Verifier.h>
 #include <llvm/ExecutionEngine/GenericValue.h>
 
 #include <llvm/PassManager.h>
-#include <llvm/Target/TargetData.h>
 #include <llvm/LinkAllPasses.h>
 
 #include <llvm/CodeGen/GCs.h>
@@ -156,13 +157,15 @@ void JITRuntime::initialize(SmalltalkVM* softVM)
     std::string error;
     m_executionEngine = EngineBuilder(m_JITModule)
                             .setEngineKind(EngineKind::JIT)
+                            //TODO: uncomment to make the creation of engine possible
+                            // .setUseMCJIT(true)
                             .setErrorStr(&error)
                             .setTargetOptions(Opts)
                             .setOptLevel(CodeGenOpt::Aggressive)
                             .create();
 
     if (!m_executionEngine) {
-        errs() << error;
+        errs() << "Cannot create Engine: " << error << "\n";
         std::exit(1);
     }
 
@@ -908,7 +911,8 @@ void JITRuntime::initializePassManager() {
     // Set up the optimizer pipeline.
     // Start with registering info about how the
     // target lays out data structures.
-    m_functionPassManager->add(new TargetData(*m_executionEngine->getTargetData()));
+
+    // FIXME: m_functionPassManager->add(new TargetData(*m_executionEngine->getTargetData()));
 
     m_modulePassManager->add(createFunctionInliningPass());
 
