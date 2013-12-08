@@ -49,7 +49,7 @@
 #include <llvm/IR/Intrinsics.h>
 
 #include <llvm/ExecutionEngine/ExecutionEngine.h>
-#include <llvm/ExecutionEngine/MCJIT.h>
+#include <llvm/ExecutionEngine/JIT.h>
 #include <llvm/Linker.h>
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/PassManager.h>
