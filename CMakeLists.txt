@@ -46,7 +46,7 @@ endif()
 
 set (CMAKE_CXX_FLAGS "${LLVM_CXX_FLAGS} -Wall -fexceptions -frtti -Wno-pedantic -Wno-cast-qual")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -ggdb -O0")
-set (CMAKE_CXX_FLAGS_RELEASE "-O3")
+set (CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -mtune=native")
 
 add_subdirectory(src)
 add_subdirectory(include)

@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 #if defined(LLVM)
     std::auto_ptr<IMemoryManager> memoryManager(new LLVMMemoryManager());
 #else
-    std::auto_ptr<IMemoryManager> memoryManager(new BakerMemoryManager());
+    std::auto_ptr<IMemoryManager> memoryManager(new NonCollectMemoryManager());
 #endif
     memoryManager->initializeHeap(llstArgs.heapSize, llstArgs.maxHeapSize);
 
