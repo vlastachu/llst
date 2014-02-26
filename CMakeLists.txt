@@ -2,6 +2,16 @@ cmake_minimum_required(VERSION 2.8.4)
 
 project(llst-project)
 
+set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# uninstall target
+configure_file(
+    "${CMAKE_MODULE_PATH}/uninstall.cmake.in"
+    "${CMAKE_MODULE_PATH}/uninstall.cmake"
+    IMMEDIATE @ONLY)
+
+add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_MODULE_PATH}/uninstall.cmake)
+
 if (LLVM)
     if(LLVM_VERSION)
         set (CONFIG_COMMAND "llvm-config-${LLVM_VERSION}")
