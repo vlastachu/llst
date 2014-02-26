@@ -117,6 +117,7 @@ std::string args::getHelp()
         "  -h, --heap <number>              Starting <number> of the heap in bytes\n"
         "  -H, --heap_max <number>          Maximum allowed heap size\n"
         "  -i, --image <path>               Path to image\n"
+        "  -V, --version                    Display the version number and copyrights of the invoked LLST\n"
         "      --help                       Display this information and quit";
 }
 
